@@ -1,0 +1,36 @@
+database:
+  sql:
+    host: 127.0.0.1
+    port: "3306"
+    database: prefixes
+    username: root
+    password: ""
+    sample: true
+
+global-prefixes:
+  - "[global 1]"
+  - "[global 2]"
+  - "[global 3]"
+
+global-suffixes:
+  - "[global 1]"
+  - "[global 2]"
+  - "[global 3]"
+
+global-colors:
+  - "#ff0000"
+  - "#00ff00"
+  - "#0000ff"
+
+# glassprefixes.admin.*
+## glassprefixes.admin.add-global
+## glassprefixes.admin.add-personal
+## glassprefixes.admin.remove-global
+## glassprefixes.admin.remove-personal
+## glassprefixes.admin.clear-personal
+
+# glassprefixes.prefix.global.1
+# glassprefixes.prefix.global.2
+# ...
+# glassprefixes.prefix.global.*
+

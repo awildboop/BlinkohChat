@@ -1,0 +1,7 @@
+name: BlinkohChat
+version: '${version}'
+main: com.awildboop.blinkohchat.BlinkohChat
+api-version: '1.20'
+depend: [Vault]
+authors: [BOOP]
+website: blinkohsmp.com
