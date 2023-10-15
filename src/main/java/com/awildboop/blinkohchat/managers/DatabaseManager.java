@@ -16,7 +16,7 @@ public class DatabaseManager {
         this.plugin = plugin;
     }
 
-    public void connect() {
+    public boolean connect() {
         final String host = plugin.getConfig().getString("database.sql.host");
         final String port = plugin.getConfig().getString("database.sql.port");
         final String database = plugin.getConfig().getString("database.sql.database");
@@ -59,17 +59,21 @@ public class DatabaseManager {
 
             // used for development vvvvv
             if (plugin.getConfig().getBoolean("database.sql.sample")) {
-                sql.execute("INSERT INTO `prefixes` (`uuid`, `prefix`) VALUES ('266b4077-3441-42bb-ba4b-a791edc7b260', 'prefix1')");
-                sql.execute("INSERT INTO `prefixes` (`uuid`, `prefix`) VALUES ('266b4077-3441-42bb-ba4b-a791edc7b260', 'prefix2')");
-                sql.execute("INSERT INTO `prefixes` (`uuid`, `prefix`) VALUES ('266b4077-3441-42bb-ba4b-a791edc7b260', 'prefix3')");
-                sql.execute("INSERT INTO `prefixes` (`uuid`, `prefix`) VALUES ('266b4077-3441-42bb-ba4b-a791edc7b260', 'prefix4')");
+                sql.execute("INSERT IGNORE INTO `prefixes` (`uuid`, `prefix`) VALUES ('266b4077-3441-42bb-ba4b-a791edc7b260', 'prefix1')");
+                sql.execute("INSERT IGNORE INTO `prefixes` (`uuid`, `prefix`) VALUES ('266b4077-3441-42bb-ba4b-a791edc7b260', 'prefix2')");
+                sql.execute("INSERT IGNORE INTO `prefixes` (`uuid`, `prefix`) VALUES ('266b4077-3441-42bb-ba4b-a791edc7b260', 'prefix3')");
+                sql.execute("INSERT IGNORE INTO `prefixes` (`uuid`, `prefix`) VALUES ('266b4077-3441-42bb-ba4b-a791edc7b260', 'prefix4')");
             }
             // used for development ^^^^^
 
         } catch (Exception e) {
+            plugin.getLogger().warning(e.getMessage());
             plugin.getLogger().warning("Encountered error loading database!");
+            return false;
         }
+
         plugin.getLogger().info("Database loaded!");
+        return true;
     }
 
     public HikariDataSource getDataSource() {

@@ -5,11 +5,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.jetbrains.annotations.NotNull;
 
 public class LoadPlayerName implements Listener {
     private final BlinkohChat plugin;
 
-    public LoadPlayerName(BlinkohChat plugin) {
+    public LoadPlayerName(@NotNull BlinkohChat plugin) {
         this.plugin = plugin;
     }
 

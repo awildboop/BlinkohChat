@@ -22,15 +22,34 @@ global-colors:
   - "#00ff00"
   - "#0000ff"
 
-# glassprefixes.admin.*
-## glassprefixes.admin.add-global
-## glassprefixes.admin.add-personal
-## glassprefixes.admin.remove-global
-## glassprefixes.admin.remove-personal
-## glassprefixes.admin.clear-personal
+# blinkohchat.* -- all non-admin commands
+# blinkohchat.admin.* -- all admin commands
+## blinkohchat.admin.add-global
+## blinkohchat.admin.add-personal
+## blinkohchat.admin.remove-global
+## blinkohchat.admin.remove-personal
+## blinkohchat.admin.clear-personal
 
-# glassprefixes.prefix.global.1
-# glassprefixes.prefix.global.2
+## blinkohchat.admin.prefix.change-prefix
+## blinkohchat.admin.prefix.add-global
+## blinkohchat.admin.prefix.add-personal
+## blinkohchat.admin.prefix.remove-global
+## blinkohchat.admin.prefix.remove-personal
+## blinkohchat.admin.prefix.clear-personal
+
+## blinkohchat.admin.suffix.change-prefix
+## blinkohchat.admin.suffix.add-global
+## blinkohchat.admin.suffix.add-personal
+## blinkohchat.admin.suffix.remove-global
+## blinkohchat.admin.suffix.remove-personal
+## blinkohchat.admin.suffix.clear-personal
+
+## blinkohchat.admin.color.change-color
+
+# blinkohchat.change-prefix
+
+# blinkohchat.prefix.global.1
+# blinkohchat.prefix.global.2
 # ...
-# glassprefixes.prefix.global.*
+# blinkohchat.prefix.global.*
 

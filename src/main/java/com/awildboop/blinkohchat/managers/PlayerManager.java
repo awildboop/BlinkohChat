@@ -5,6 +5,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.milkbowl.vault.chat.Chat;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,18 +18,18 @@ public class PlayerManager {
     private final Chat chat;
 
 
-    public PlayerManager(BlinkohChat plugin) {
+    public PlayerManager(@NotNull BlinkohChat plugin) {
         this.plugin = plugin;
         this.dbManager = plugin.getDatabaseManager();
         this.chat = plugin.getChat();
     }
 
-    public void setPlayerPrefix(Player player, String prefix) {
-        chat.setPlayerPrefix(player, prefix);
+    public void setPlayerPrefix(Player player, Component prefix) {
+        chat.setPlayerPrefix(player, MiniMessage.miniMessage().serialize(prefix));
     }
 
-    public void setPlayerSuffix(Player player, String suffix) {
-        chat.setPlayerSuffix(player, suffix);
+    public void setPlayerSuffix(Player player, Component suffix) {
+        chat.setPlayerPrefix(player, MiniMessage.miniMessage().serialize(suffix));
     }
 
     public void setPlayerName(Player player, Component name) {

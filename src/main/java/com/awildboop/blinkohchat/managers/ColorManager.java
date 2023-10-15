@@ -1,11 +1,12 @@
 package com.awildboop.blinkohchat.managers;
 
 import com.awildboop.blinkohchat.BlinkohChat;
+import org.jetbrains.annotations.NotNull;
 
 public class ColorManager {
     private final BlinkohChat plugin;
 
-    public ColorManager(BlinkohChat plugin) {
+    public ColorManager(@NotNull BlinkohChat plugin) {
         this.plugin = plugin;
     }
 
