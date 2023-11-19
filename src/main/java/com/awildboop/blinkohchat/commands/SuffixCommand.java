@@ -55,30 +55,33 @@ public class SuffixCommand implements CommandExecutor {
         final BlinkohChatInventory inv = new BlinkohChatInventory(plugin, "Suffix Selector");
         final NamespacedKey key = new NamespacedKey(plugin, "suffix-content");
 
-        int index = 1;
-        for (String suffix : decoratorManager.getGlobalDecorators(BlinkohChatDecorator.Suffix)) {
-            if (perms.has(target, "blinkohchat.suffix.global." + index)) {
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            int index = 1;
+            for (String suffix : decoratorManager.getGlobalDecorators(BlinkohChatDecorator.Suffix)) {
+                if (perms.has(target, "blinkohchat.suffix.global." + index)) {
+                    ItemStack item = GuiUtils.guiItem(
+                            Material.NAME_TAG,
+                            suffix, key,
+                            MiniMessage.miniMessage().deserialize("<italic>This global suffix is available to everyone</italic>")
+                    );
+
+                    inv.getInventory().addItem(item);
+                }
+
+                index++;
+            }
+
+            for (String suffix : decoratorManager.getPersonalDecorators(target, BlinkohChatDecorator.Suffix)) {
                 ItemStack item = GuiUtils.guiItem(
                         Material.NAME_TAG,
                         suffix, key,
-                        MiniMessage.miniMessage().deserialize("<italic>This global suffix is available to everyone</italic>")
+                        MiniMessage.miniMessage().deserialize("<italic>This is a personal suffix.</italic>")
                 );
 
                 inv.getInventory().addItem(item);
             }
 
-            index++;
-        }
-
-        for (String suffix : decoratorManager.getPersonalDecorators(target, BlinkohChatDecorator.Suffix)) {
-            ItemStack item = GuiUtils.guiItem(
-                    Material.NAME_TAG,
-                    suffix, key,
-                    MiniMessage.miniMessage().deserialize("<italic>This is a personal suffix.</italic>")
-            );
-
-            inv.getInventory().addItem(item);
-        }
+        });
 
         player.openInventory(inv.getInventory());
         return true;

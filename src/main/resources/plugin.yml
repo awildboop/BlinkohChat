@@ -8,6 +8,5 @@ website: blinkohsmp.com
 commands:
   prefix:
     description: Allows you to change your prefix.
-permissions:
-  change-prefix:
-    description: Allows you to change your prefix.
+  suffix:
+    description: ALlows you to change your suffix.
