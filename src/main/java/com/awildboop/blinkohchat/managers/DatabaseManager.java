@@ -38,8 +38,8 @@ public class DatabaseManager {
                         `uuid` CHAR(36),
                         `type` VARCHAR(10),
                         `content` VARCHAR(50),
-                        INDEX `uuids` (`uuid`),
-                        INDEX `prefixes` (`prefix`)
+                        INDEX `decs` (`uuid`, `type`),
+                        INDEX `contents` (`content`)
                     );"""
             );
 
@@ -54,10 +54,10 @@ public class DatabaseManager {
 
             // used for development vvv
             if (plugin.getConfig().getBoolean("database.sql.sample")) {
-                sql.execute("INSERT IGNORE INTO `prefixes` (`uuid`, `prefix`) VALUES ('266b4077-3441-42bb-ba4b-a791edc7b260', 'prefix1')");
-                sql.execute("INSERT IGNORE INTO `prefixes` (`uuid`, `prefix`) VALUES ('266b4077-3441-42bb-ba4b-a791edc7b260', 'prefix2')");
-                sql.execute("INSERT IGNORE INTO `prefixes` (`uuid`, `prefix`) VALUES ('266b4077-3441-42bb-ba4b-a791edc7b260', 'prefix3')");
-                sql.execute("INSERT IGNORE INTO `prefixes` (`uuid`, `prefix`) VALUES ('266b4077-3441-42bb-ba4b-a791edc7b260', 'prefix4')");
+                sql.execute("INSERT IGNORE INTO `decorators` (`uuid`, `type`, `content`) VALUES ('266b4077-3441-42bb-ba4b-a791edc7b260', 'prefix', 'prefix1')");
+                sql.execute("INSERT IGNORE INTO `decorators` (`uuid`, `type`, `content`) VALUES ('266b4077-3441-42bb-ba4b-a791edc7b260', 'prefix', 'prefix2')");
+                sql.execute("INSERT IGNORE INTO `decorators` (`uuid`, `type`, `content`) VALUES ('266b4077-3441-42bb-ba4b-a791edc7b260', 'suffix', 'suffix1')");
+                sql.execute("INSERT IGNORE INTO `decorators` (`uuid`, `type`, `content`) VALUES ('266b4077-3441-42bb-ba4b-a791edc7b260', 'suffix', 'suffix2')");
             }
             // used for development ^^^
 
