@@ -19,10 +19,8 @@ public final class BlinkohChat extends JavaPlugin {
 
     private DatabaseManager databaseManager;
     private PlayerManager playerManager;
-    private PrefixManager prefixManager;
-    private SuffixManager suffixManager;
+    private DecoratorManager decoratorManager;
     private ColorManager colorManager;
-
 
     @Override
     public void onEnable() {
@@ -76,35 +74,25 @@ public final class BlinkohChat extends JavaPlugin {
     public void loadManagers() {
         this.databaseManager = new DatabaseManager(this);
         this.playerManager = new PlayerManager(this);
-        this.prefixManager = new PrefixManager(this);
-        this.suffixManager = new SuffixManager(this);
+        this.decoratorManager = new DecoratorManager(this);
         this.colorManager = new ColorManager(this);
     }
 
     public Chat getChat() {
         return chat;
     }
-
     public Permission getPerms() {
         return perms;
     }
-
     public DatabaseManager getDatabaseManager() {
         return databaseManager;
     }
-
     public PlayerManager getPlayerManager() {
         return playerManager;
     }
-
-    public PrefixManager getPrefixManager() {
-        return prefixManager;
+    public DecoratorManager getDecoratorManager() {
+        return decoratorManager;
     }
-
-    public SuffixManager getSuffixManager() {
-        return suffixManager;
-    }
-
     public ColorManager getColorManager() {
         return colorManager;
     }

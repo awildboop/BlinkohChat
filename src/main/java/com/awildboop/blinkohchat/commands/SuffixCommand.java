@@ -2,7 +2,7 @@ package com.awildboop.blinkohchat.commands;
 
 import com.awildboop.blinkohchat.BlinkohChat;
 import com.awildboop.blinkohchat.BlinkohChatInventory;
-import com.awildboop.blinkohchat.managers.SuffixManager;
+import com.awildboop.blinkohchat.managers.DecoratorManager;
 import com.awildboop.blinkohchat.utils.GuiUtils;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.milkbowl.vault.permission.Permission;
@@ -20,12 +20,12 @@ import java.util.Objects;
 
 public class SuffixCommand implements CommandExecutor {
     private final BlinkohChat plugin;
-    private final SuffixManager suffixManager;
+    private final DecoratorManager decoratorManager;
     private final Permission perms;
 
     public SuffixCommand(@NotNull BlinkohChat plugin) {
         this.plugin = plugin;
-        this.suffixManager = plugin.getSuffixManager();
+        this.decoratorManager = plugin.getDecoratorManager();
         this.perms = plugin.getPerms();
     }
 

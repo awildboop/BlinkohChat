@@ -33,26 +33,19 @@ public class DatabaseManager {
         plugin.getLogger().info("Loading database...");
         try (Connection conn = dataSource.getConnection()) {
             Statement sql = conn.createStatement();
-            sql.execute("CREATE TABLE IF NOT EXISTS `prefixes` (\n" +
-                    "    `uuid` CHAR(36),\n" +
-                    "    `prefix` VARCHAR(50),\n" +
+            sql.execute("CREATE TABLE IF NOT EXISTS `decorators` (\n" +
+                    "    `uuid` VARCHAR(36),\n" +
+                    "    `type` VARCHAR(10),\n" +
+                    "    `content` VARCHAR(50),\n" +
                     "    INDEX `uuids` (`uuid`),\n" +
-                    "    UNIQUE INDEX `prefixes` (`prefix`)\n" +
-                    ");"
-            );
-
-            sql.execute("CREATE TABLE IF NOT EXISTS `suffixes` (\n" +
-                    "    `uuid` CHAR(36),\n" +
-                    "    `suffix` VARCHAR(50),\n" +
-                    "    INDEX `uuids` (`uuid`),\n" +
-                    "    UNIQUE INDEX `suffixes` (`suffix`)\n" +
+                    "    INDEX `prefixes` (`prefix`)\n" +
                     ");"
             );
 
             sql.execute("CREATE TABLE IF NOT EXISTS `names` (\n" +
                     "    `uuid` CHAR(36),\n" +
                     "    `name` VARCHAR(50),\n" +
-                    "    INDEX `uuids` (`uuid`),\n" +
+                    "    UNIQUE INDEX `uuids` (`uuid`),\n" +
                     "    UNIQUE INDEX `names` (`name`)\n" +
                     ");"
             );

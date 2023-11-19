@@ -2,7 +2,7 @@ package com.awildboop.blinkohchat.commands;
 
 import com.awildboop.blinkohchat.BlinkohChat;
 import com.awildboop.blinkohchat.BlinkohChatInventory;
-import com.awildboop.blinkohchat.managers.PrefixManager;
+import com.awildboop.blinkohchat.managers.DecoratorManager;
 import com.awildboop.blinkohchat.utils.GuiUtils;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.milkbowl.vault.permission.Permission;
@@ -21,12 +21,12 @@ import java.util.Objects;
 
 public class PrefixCommand implements CommandExecutor, Listener {
     private final BlinkohChat plugin;
-    private final PrefixManager prefixManager;
+    private final DecoratorManager decoratorManager;
     private final Permission perms;
 
     public PrefixCommand(@NotNull BlinkohChat plugin) {
         this.plugin = plugin;
-        this.prefixManager = plugin.getPrefixManager();
+        this.decoratorManager = plugin.getDecoratorManager();
         this.perms = plugin.getPerms();
     }
 
