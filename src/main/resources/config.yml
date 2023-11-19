@@ -7,17 +7,17 @@ database:
     password: ""
     sample: true
 
-global-prefixes:
+global-prefix:
   - "[global 1]"
   - "[global 2]"
   - "[global 3]"
 
-global-suffixes:
+global-suffix:
   - "[global 1]"
   - "[global 2]"
   - "[global 3]"
 
-global-colors:
+global-color:
   - "#ff0000"
   - "#00ff00"
   - "#0000ff"

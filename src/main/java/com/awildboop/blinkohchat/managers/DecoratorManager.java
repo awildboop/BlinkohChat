@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class DecoratorManager {
     private final BlinkohChat plugin;
@@ -21,8 +22,8 @@ public class DecoratorManager {
         this.dbManager = plugin.getDatabaseManager();
     }
 
-    public List<String> getDecorators(Player player, BlinkohChatDecorator type) {
-        List<String> decorators = new ArrayList<String>();
+    public List<String> getPersonalDecorators(Player player, BlinkohChatDecorator type) {
+        List<String> decorators = new ArrayList<>();
         try (Connection conn = dbManager.getDataSource().getConnection()) {
             PreparedStatement sql = conn.prepareStatement("SELECT `content` FROM `decorators` WHERE `uuid`=? AND `type`=?;");
             sql.setString(1, player.getUniqueId().toString());
@@ -99,73 +100,29 @@ public class DecoratorManager {
         }
     }
 
-    /*
-    TODO Remake global decorators to operate with config.yml
-           - This is ideal as opposed to DB usage due to the way we handle global decorator perms
-           - Will also need to add a function to get global decorators
-            - Can also redo other function w/ if statement, but then I have to leave Global/Prefix in Decorator enum
-     */
+    public List<String> getGlobalDecorators(BlinkohChatDecorator type) {
+        return plugin.getConfig().getStringList("global-"+type.toString());
+    }
+
     public void addGlobalDecorator(BlinkohChatDecorator type, String content) {
-        try (Connection conn = dbManager.getDataSource().getConnection()) {
-            PreparedStatement sql = conn.prepareStatement("INSERT IGNORE INTO `decorators` (`uuid`, `type`, `relation`, `content`) VALUES (?, ?, ?, ?);");
-            sql.setString(1, "global");
-            sql.setString(2, type.toString());
-            sql.setString(3, BlinkohChatDecorator.Global.toString());
-            sql.setString(4, content);
-            sql.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+            List<String> newList = getGlobalDecorators(type);
+            newList.add(content);
+            plugin.getConfig().set("global-"+type, newList);
     }
 
     public void addGlobalDecorators(BlinkohChatDecorator type, List<String> contents) {
-        if (contents.isEmpty()) return;
-
-        try (Connection conn = dbManager.getDataSource().getConnection()) {
-            PreparedStatement sql = conn.prepareStatement("INSERT IGNORE INTO `decorators` (`uuid`, `type`, `relation`, `content`) VALUES (?, ?, ?, ?);");
-            for (String content : contents) {
-                sql.setString(1, "global");
-                sql.setString(2, type.toString());
-                sql.setString(3, BlinkohChatDecorator.Global.toString());
-                sql.setString(4, content);
-                sql.addBatch();
-            }
-
-            sql.executeBatch();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        plugin.getConfig().set("global-"+type.toString(), Stream.concat(getGlobalDecorators(type).stream(), contents.stream()).toList());
     }
 
     public void removeGlobalDecorator(BlinkohChatDecorator type, String content) {
-        try (Connection conn = dbManager.getDataSource().getConnection()) {
-            PreparedStatement sql = conn.prepareStatement("DELETE FROM `decorators` WHERE `uuid`=? AND `type`=? AND `relation`=? AND `content`=?;");
-            sql.setString(1, "global");
-            sql.setString(2, type.toString());
-            sql.setString(3, BlinkohChatDecorator.Global.toString());
-            sql.setString(4, content);
-            sql.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        List<String> newList = getGlobalDecorators(type);
+        newList.remove(content);
+        plugin.getConfig().set("global-"+type, newList);
     }
 
     public void removeGlobalDecorators(BlinkohChatDecorator type, List<String> contents) {
-        if (contents.isEmpty()) return;
-
-        try (Connection conn = dbManager.getDataSource().getConnection()) {
-            PreparedStatement sql = conn.prepareStatement("DELETE FROM `decorators` WHERE `uuid`=? AND `type`=? AND `relation`=? AND `content`=?;");
-            for (String content : contents) {
-                sql.setString(1, "global");
-                sql.setString(2, type.toString());
-                sql.setString(3, BlinkohChatDecorator.Global.toString());
-                sql.setString(4, content);
-                sql.addBatch();
-            }
-
-            sql.executeBatch();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        for (String content : contents) {
+            removeGlobalDecorator(type, content);
         }
     }
 }

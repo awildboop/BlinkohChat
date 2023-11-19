@@ -1,6 +1,7 @@
 package com.awildboop.blinkohchat.commands;
 
 import com.awildboop.blinkohchat.BlinkohChat;
+import com.awildboop.blinkohchat.BlinkohChatDecorator;
 import com.awildboop.blinkohchat.BlinkohChatInventory;
 import com.awildboop.blinkohchat.managers.DecoratorManager;
 import com.awildboop.blinkohchat.utils.GuiUtils;
@@ -37,7 +38,7 @@ public class SuffixCommand implements CommandExecutor {
                 perms.has(sender, "blinkohchat.admin.*") ||
                 perms.has(sender, "blinkohchat.*"))) return false;
 
-        Player target = null;
+        Player target;
         if (args.length > 0) {
             if (!(perms.has(sender, "blinkohchat.admin.change-suffix") ||
                     perms.has(sender, "blinkohchat.admin.*"))) return false;
@@ -55,7 +56,7 @@ public class SuffixCommand implements CommandExecutor {
         final NamespacedKey key = new NamespacedKey(plugin, "suffix-content");
 
         int index = 1;
-        for (String suffix : suffixManager.getGlobalSuffixes()) {
+        for (String suffix : decoratorManager.getGlobalDecorators(BlinkohChatDecorator.Suffix)) {
             if (perms.has(target, "blinkohchat.suffix.global." + index)) {
                 ItemStack item = GuiUtils.guiItem(
                         Material.NAME_TAG,
@@ -69,7 +70,7 @@ public class SuffixCommand implements CommandExecutor {
             index++;
         }
 
-        for (String suffix : suffixManager.getPersonalSuffixes(target)) {
+        for (String suffix : decoratorManager.getPersonalDecorators(target, BlinkohChatDecorator.Suffix)) {
             ItemStack item = GuiUtils.guiItem(
                     Material.NAME_TAG,
                     suffix, key,

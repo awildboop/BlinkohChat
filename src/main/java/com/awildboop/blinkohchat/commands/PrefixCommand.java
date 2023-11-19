@@ -1,6 +1,7 @@
 package com.awildboop.blinkohchat.commands;
 
 import com.awildboop.blinkohchat.BlinkohChat;
+import com.awildboop.blinkohchat.BlinkohChatDecorator;
 import com.awildboop.blinkohchat.BlinkohChatInventory;
 import com.awildboop.blinkohchat.managers.DecoratorManager;
 import com.awildboop.blinkohchat.utils.GuiUtils;
@@ -38,7 +39,7 @@ public class PrefixCommand implements CommandExecutor, Listener {
                 perms.has(sender, "blinkohchat.admin.*") ||
                 perms.has(sender, "blinkohchat.*"))) return false;
 
-        Player target = null;
+        Player target;
         if (args.length > 0) {
             if (!(perms.has(sender, "blinkohchat.admin.change-prefix") ||
                     perms.has(sender, "blinkohchat.admin.*"))) return false;
@@ -56,7 +57,7 @@ public class PrefixCommand implements CommandExecutor, Listener {
         final NamespacedKey key = new NamespacedKey(plugin, "prefix-content");
 
         int index = 1;
-        for (String prefix : prefixManager.getGlobalPrefixes()) {
+        for (String prefix : decoratorManager.getGlobalDecorators(BlinkohChatDecorator.Prefix)) {
             if (perms.has(target, "blinkohchat.prefix.global." + index)) {
                 ItemStack item = GuiUtils.guiItem(
                         Material.NAME_TAG,
@@ -70,7 +71,7 @@ public class PrefixCommand implements CommandExecutor, Listener {
             index++;
         }
 
-        for (String prefix : prefixManager.getPersonalPrefixes(target)) {
+        for (String prefix : decoratorManager.getPersonalDecorators(target, BlinkohChatDecorator.Prefix)) {
             ItemStack item = GuiUtils.guiItem(
                     Material.NAME_TAG,
                     prefix, key,

@@ -4,14 +4,11 @@ public enum BlinkohChatDecorator {
     Prefix("prefix"),
     Suffix("suffix"),
     Color("color"),
-    Colour("color"), // because i like to use colour a lot
-
-    Personal("personal"),
-    Global("global"); // including these here because it doesn't make sense to make another enum just for them
+    Colour("color"); // because I like to use colour a lot
 
 
     private final String label;
-    private BlinkohChatDecorator(String label) {
+    BlinkohChatDecorator(String label) {
         this.label = label;
     }
 
